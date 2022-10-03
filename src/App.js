@@ -74,6 +74,21 @@ const NewBox = styled.div`
   }
 `;
 
+const Background = styled.div`
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  justify-content: center;
+  align-items: center;
+  background-color: ${(props) => props.theme.backgroundColor};
+`;
+
+const Title = styled.h1`
+  color: ${(props) => props.theme.textColor};
+`;
+
+// Theme : an object of styled-componets which has all the colors
+
 function App() {
   return (
     <>
@@ -84,7 +99,6 @@ function App() {
             Hello
           </Btn>
           <Text />
-          <span style={{ color: "red" }} />
         </Box>
         <Circle bgColor="tomato" />
       </Father>
@@ -93,6 +107,9 @@ function App() {
           <Emoji>😂</Emoji>
         </NewBox>
       </Wrapper>
+      <Background>
+        <Title>Welcome!!</Title>
+      </Background>
     </>
   );
 }

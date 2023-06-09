@@ -27,54 +27,45 @@ function Chart({ coinId }: ChartProps) {
             {isLoading ? (
                 "Loading chart..."
             ) : (
-                <ApexChart
-                    type="line"
-                    series={[
-                        {
-                            name: "price",
-                            data:
-                                data?.map((price) => parseFloat(price.close)) ??
-                                [],
-                        },
-                    ]}
-                    options={{
-                        theme: { mode: "dark" },
-                        chart: {
-                            height: 300,
-                            width: 500,
-                            toolbar: { show: false },
-                            background: "transparant",
-                        },
-                        stroke: { curve: "smooth", width: 3 },
-                        grid: { show: false },
-                        yaxis: {
-                            show: false,
-                        },
-                        xaxis: {
-                            axisBorder: { show: false },
-                            axisTicks: { show: false },
-                            labels: { show: false },
-                            type: "datetime",
-                            categories: data?.map((price) =>
-                                new Date(price.time_close * 1000).toISOString()
-                            ),
-                        },
-                        fill: {
-                            type: "gradient",
-                            gradient: {
-                                gradientToColors: ["#0be881"],
-                                stops: [0, 100],
+                <>
+                    <ApexChart
+                        type="candlestick"
+                        series={[
+                            {
+                                data:
+                                    data?.map((price) => {
+                                        return {
+                                            x: new Date(
+                                                price.time_close * 1000
+                                            ),
+                                            y: [
+                                                parseFloat(price.open),
+                                                parseFloat(price.high),
+                                                parseFloat(price.low),
+                                                parseFloat(price.close),
+                                            ],
+                                        };
+                                    }) ?? [],
                             },
-                        },
-                        colors: ["#0fbcf9"],
-                        tooltip: {
-                            y: {
-                                formatter: (value: number) =>
-                                    `$${value.toFixed(2)}`,
+                        ]}
+                        options={{
+                            chart: {
+                                toolbar: { show: false },
+                                background: "transparent",
                             },
-                        },
-                    }}
-                />
+                            theme: { mode: "light" },
+                            grid: { show: true },
+                            xaxis: {
+                                labels: { show: false },
+                                axisBorder: { show: false },
+                                axisTicks: { show: false },
+                            },
+                            yaxis: {
+                                show: false,
+                            },
+                        }}
+                    />
+                </>
             )}
         </div>
     );

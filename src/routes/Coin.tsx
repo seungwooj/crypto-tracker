@@ -52,7 +52,7 @@ const Loader = styled.span`
 const Overview = styled.div`
     display: flex;
     justify-content: space-between;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.theme.cardColor};
     padding: 10px 20px;
     border-radius: 10px;
 `;
@@ -84,7 +84,7 @@ const Tab = styled.span<{ isActive: boolean }>`
     text-transform: uppercase;
     font-size: 12px;
     font-weight: 400;
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: ${(props) => props.theme.cardColor};
     padding: 7px 0px;
     border-radius: 10px;
     color: ${(props) =>

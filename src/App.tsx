@@ -1,25 +1,11 @@
-import styled from "styled-components";
-
-const Background = styled.div`
-    display: flex;
-    height: 100vh;
-    width: 100vw;
-    justify-content: center;
-    align-items: center;
-    background-color: ${(props) => props.theme.backgroundColor};
-`;
-
-const Title = styled.h1`
-    color: ${(props) => props.theme.textColor};
-`;
-
-// Theme : an object of styled-componets which has all the colors
+import Circle from "./Circle";
 
 function App() {
     return (
-        <Background>
-            <Title>Welcome!!</Title>
-        </Background>
+        <div>
+            <Circle bgColor="teal" borderColor="yellow" />
+            <Circle text="iam here" bgColor="tomato" />
+        </div>
     );
 }
 

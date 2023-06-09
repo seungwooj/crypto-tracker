@@ -1,7 +1,10 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { HelmetProvider } from "react-helmet-async";
+import { ThemeProvider } from "styled-components";
+import { lightTheme, darkTheme } from "./theme";
+import { useState } from "react";
 
 // styled-reset https://github.com/zacanger/styled-reset/blob/master/src/index.ts
 const GlobalStyle = createGlobalStyle`
@@ -70,14 +73,30 @@ a {
 }
 `;
 
+const ToggleBtn = styled.button`
+    font-size: 18px;
+    color: "red";
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+`;
+
 function App() {
+    const [isDefault, setIsDefault] = useState(false);
+    const toggleBg = () => setIsDefault((curr) => !curr);
     return (
         <>
-            <GlobalStyle />
-            <HelmetProvider>
-                <Router />
-            </HelmetProvider>
-            <ReactQueryDevtools initialIsOpen={true} />
+            <ThemeProvider theme={isDefault ? lightTheme : darkTheme}>
+                <GlobalStyle />
+                <HelmetProvider>
+                    <Router />
+                </HelmetProvider>
+                <ReactQueryDevtools initialIsOpen={true} />
+                <ToggleBtn onClick={toggleBg}>Toggle</ToggleBtn>
+            </ThemeProvider>
         </>
     );
 }

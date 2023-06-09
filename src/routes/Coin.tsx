@@ -10,6 +10,7 @@ import styled from "styled-components";
 import Chart from "./Chart";
 import Price from "./Price";
 import { useQuery } from "react-query";
+import { Helmet } from "react-helmet-async";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
 
 const Container = styled.div`
@@ -86,6 +87,7 @@ interface RouteParams {
 
 interface RouteState {
     name: string;
+    symbol: string;
 }
 
 interface InfoData {
@@ -157,13 +159,30 @@ function Coin() {
         () => fetchCoinInfo(coinId)
     );
     const { isLoading: tickersLoading, data: tickersData } =
-        useQuery<PriceData>(["tickers", coinId], () =>
-            fetchCoinTickers(coinId)
+        useQuery<PriceData>(
+            ["tickers", coinId],
+            () => fetchCoinTickers(coinId)
+            // { refetchInterval: 5000 }
         );
     const loading = infoLoading || tickersLoading;
 
     return (
         <Container>
+            <Helmet>
+                <link
+                    rel="icon"
+                    type="image/png"
+                    href={`https://coinicons-api.vercel.app/api/icon/${state?.symbol}`}
+                    sizes="16*16"
+                ></link>
+                <title>
+                    {state?.name
+                        ? state.name
+                        : loading
+                        ? "Loading..."
+                        : infoData?.name}
+                </title>
+            </Helmet>
             <Header>
                 <Title>
                     {state?.name
@@ -187,8 +206,10 @@ function Coin() {
                             <span>${infoData?.symbol}</span>
                         </OverviewItem>
                         <OverviewItem>
-                            <span>Open Source:</span>
-                            <span>{infoData?.open_source ? "Yes" : "No"}</span>
+                            <span>Price:</span>
+                            <span>
+                                {tickersData?.quotes.USD.price.toFixed(3)}
+                            </span>
                         </OverviewItem>
                     </Overview>
                     <Description>{infoData?.description}</Description>
@@ -217,7 +238,7 @@ function Coin() {
                             <Price />
                         </Route>
                         <Route path={`/:coinId/chart`}>
-                            <Chart />
+                            <Chart coinId={coinId} />
                         </Route>
                     </Switch>
                 </>

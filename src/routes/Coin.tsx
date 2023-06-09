@@ -22,7 +22,20 @@ const Container = styled.div`
 const Header = styled.header`
     height: 15vh;
     display: flex;
+    position: relative;
     justify-content: center;
+    align-items: center;
+`;
+
+const BackBtn = styled.div`
+    font-size: 48px;
+    color: ${(props) => props.theme.accentColor};
+`;
+
+const StyledLink = styled(Link)`
+    position: absolute;
+    left: 0px;
+    display: flex;
     align-items: center;
 `;
 
@@ -184,6 +197,9 @@ function Coin() {
                 </title>
             </Helmet>
             <Header>
+                <StyledLink to={`/`}>
+                    <BackBtn>&larr;</BackBtn>
+                </StyledLink>
                 <Title>
                     {state?.name
                         ? state.name

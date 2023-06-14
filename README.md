@@ -1,2 +1,2 @@
 # Crypto Tracker - ReactJS Masterclass (NomadCoder)
-styled-components, react-query, recoil, helmet
+styled-components, react-dom, react-query, recoil, helmet

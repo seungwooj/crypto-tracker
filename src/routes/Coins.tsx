@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoins } from "../api";
 import { Helmet } from "react-helmet-async";
+import { useSetRecoilState } from "recoil";
+import { isDartAtom } from "../atoms";
 
 const Container = styled.div`
     padding: 0px 20px;
@@ -54,6 +56,17 @@ const Img = styled.img`
     margin-right: 10px;
 `;
 
+const ToggleBtn = styled.button`
+    font-size: 18px;
+    color: "red";
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+`;
+
 interface ICoin {
     id: string;
     name: string;
@@ -68,6 +81,11 @@ function Coins() {
     // useQuery(uniqueKey, fetcherFn) : return { isLoadingBool, fetchedJson }
     // React query keeps data in the cache. (no need to rerender)
     const { isLoading, data } = useQuery<ICoin[]>("allCoins", fetchCoins);
+
+    const setDarkAtom = useSetRecoilState(isDartAtom);
+    const toggleDarkAtom = () => {
+        setDarkAtom((prev) => !prev);
+    };
 
     return (
         <Container>
@@ -101,6 +119,7 @@ function Coins() {
                     ))}
                 </CoinsList>
             )}
+            <ToggleBtn onClick={toggleDarkAtom}>Toggle</ToggleBtn>
         </Container>
     );
 }

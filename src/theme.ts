@@ -8,8 +8,8 @@ export const darkTheme: DefaultTheme = {
 };
 
 export const lightTheme: DefaultTheme = {
-    bgColor: "#FFFFFF",
+    bgColor: "whitesmoke",
     textColor: "black",
     accentColor: "#9c88ff",
-    cardColor: "#f5f6fa",
+    cardColor: "white",
 };

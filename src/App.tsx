@@ -85,11 +85,11 @@ const ToggleBtn = styled.button`
 `;
 
 function App() {
-    const [isDefault, setIsDefault] = useState(false);
-    const toggleBg = () => setIsDefault((curr) => !curr);
+    const [isDark, setDark] = useState(false);
+    const toggleBg = () => setDark((curr) => !curr);
     return (
         <>
-            <ThemeProvider theme={isDefault ? lightTheme : darkTheme}>
+            <ThemeProvider theme={isDark ? darkTheme : lightTheme}>
                 <GlobalStyle />
                 <HelmetProvider>
                     <Router />
